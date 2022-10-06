@@ -1,4 +1,4 @@
-package ua.petprojs.mangadexparser.model;
+package mangadexparser.model;
 
 import lombok.*;
 

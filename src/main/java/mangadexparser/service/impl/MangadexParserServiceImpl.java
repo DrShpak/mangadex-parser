@@ -1,11 +1,12 @@
-package ua.petprojs.mangadexparser.service.impl;
+package mangadexparser.service.impl;
 
+import mangadexparser.model.ChapterInfo;
+import mangadexparser.model.ChapterPagesInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ua.petprojs.mangadexparser.model.ChapterInfo;
-import ua.petprojs.mangadexparser.model.ChapterPagesInfo;
-import ua.petprojs.mangadexparser.service.MangadexParserService;
+import mangadexparser.service.MangadexParserService;
 
 import java.util.UUID;
 
@@ -27,5 +28,11 @@ public class MangadexParserServiceImpl implements MangadexParserService {
         var chapterPagesInfo = chapterPagesInfoResponseEntity.getBody();
         System.out.println(chapterPages);
         System.out.println(chapterPagesInfo);
+    }
+
+    @Override
+    public ResponseEntity<ChapterPagesInfo> getChapterPagesInfo(String chapterId) {
+        return restTemplate.
+                getForEntity(MANGADEX_CHAPTER_PAGES_INFO_URL, ChapterPagesInfo.class, chapterId);
     }
 }

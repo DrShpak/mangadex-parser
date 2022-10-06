@@ -1,4 +1,4 @@
-package ua.petprojs.mangadexparser.customizer;
+package mangadexparser.customizer;
 
 import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
