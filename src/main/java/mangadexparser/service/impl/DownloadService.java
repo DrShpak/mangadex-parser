@@ -1,11 +1,12 @@
 package mangadexparser.service.impl;
 
 import lombok.val;
+import mangadexparser.model.ChapterInfo;
+import mangadexparser.model.Manga;
 import mangadexparser.service.Downlodable;
-import mangadexparser.service.MangadexParserService;
+import mangadexparser.service.ISearchManga;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -15,21 +16,22 @@ import java.util.stream.Collectors;
 @Service
 public class DownloadService {
     private final Downlodable downloader;
-    private final MangadexParserService mangadexParserService;
+    private final ISearchManga searchManga;
 //    private RestTemplate restTemplate;
 
     @Autowired
-    public DownloadService(Downlodable downloader, RestTemplate restTemplate, MangadexParserService mangadexParserService) {
+    public DownloadService(Downlodable downloader, ISearchManga searchManga) {
         this.downloader = downloader;
-//        this.restTemplate = restTemplate;
-        this.mangadexParserService = mangadexParserService;
+        this.searchManga = searchManga;
     }
 
-    //todo download all manga or one chapter??
-    public void downloadChapter(String URL, String path, int buffSize) {
+    //download one chapter
+    public void downloadChapter(String URL, String path, int buffSize, String title, String chapterNumber) {
         System.out.println("in downloadChapter");
-        val chapterId = "b874e105-2fc1-439b-994e-60bf4b24416d";
-        val chapterPagesInfo = mangadexParserService.getChapterPagesInfo(chapterId).getBody();
+        Manga manga = searchManga.getManga(title);
+        ChapterInfo chapterInfo = searchManga.getChapter(manga.getId().toString(), chapterNumber);
+        val chapterId = chapterInfo.getData().getId().toString();
+        val chapterPagesInfo = searchManga.getChapterPagesInfo(chapterId).getBody();
         URL += chapterPagesInfo.getChapter().getHash() + "/";
         Queue<String> pagesNames = Arrays.stream(chapterPagesInfo.getChapter().getData()).collect(Collectors.toCollection(ArrayDeque::new));
         val pageNumber = pagesNames.size();
@@ -37,7 +39,7 @@ public class DownloadService {
         while (!pagesNames.isEmpty()) {
             System.out.println("page name " + pagesNames.peek());
             pageName = pagesNames.poll();
-            downloader.download(URL + pageName, path, buffSize, pageNumber - pagesNames.size());
+            downloader.download(URL + pageName, path + "chapter_" + chapterNumber + "/" , buffSize, pageNumber - pagesNames.size());
         }
     }
 }

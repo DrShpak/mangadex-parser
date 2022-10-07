@@ -13,6 +13,10 @@ public class Downloader implements Downlodable {
         System.out.println("URL " + URL);
         try {
             String page_name = pageNumber + "_page.jpg";
+
+            File dir = new File (path);
+            dir.mkdir();
+
             File file = new File(path + page_name);
 
             if (file.createNewFile()) {
