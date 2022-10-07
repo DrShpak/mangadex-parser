@@ -7,16 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import mangadexparser.service.ISearchManga;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 @Component
 public class ConsoleRunner implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(ConsoleRunner.class);
-
-    @Autowired
-    private ISearchManga searchManga;
 
     @Value("${url_to_get_page}")
     private String URL_TO_GET_PAGE;
@@ -29,22 +26,31 @@ public class ConsoleRunner implements CommandLineRunner {
     private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void run(String... args) throws Exception {
-//        while (true) {
-////            var input = scanner.next();
-//            try {
-////                var chapterId = UUID.fromString(input);
-//                searchManga.parseChapter(UUID.fromString("b874e105-2fc1-439b-994e-60bf4b24416d"));
-//                downloadService.downloadChapter(URL_TO_GET_PAGE, PATH_TO_FILE, 1, "tokyo ghoul", 10);
-////                downloadService.do
-//            } catch (RuntimeException ex) {
-////                LOG.error(String.format("An error occurred while parsed %s", input), ex);
+    public void run(String... args) {
+//        StringBuilder title = new StringBuilder();
+//        StringBuilder chaptersString = new StringBuilder();
+//
+//        int delimiterPos = 0;
+//        for (int i = 0; i < args.length; i++) {
+//            if (args[i].equals("!")) {
+//                delimiterPos = i;
+//                break;
+//            } else {
+//                title.append(args[i]).append(" ");
 //            }
 //        }
+//
+//        for (int i = delimiterPos + 1; i < args.length; i++) {
+//            chaptersString.append(args[i]).append(" ");
+//        }
+//
+//        System.out.println(title + "!");
+//        System.out.println(chaptersString);
+//        downloadService.download(URL_TO_GET_PAGE, PATH_TO_FILE, 1,
+//                title.deleteCharAt(title.length() - 1).toString(),
+//                chaptersString.deleteCharAt(chaptersString.length() - 1).toString().split(" "));
+////        System.exit(0);
 
-//        mangadexparser.service.ISearchManga searchManga = new SearchService();
-//        searchManga.getChapter("21221");
-        System.out.println("fdfddfdfd");
-        downloadService.downloadChapter(URL_TO_GET_PAGE, PATH_TO_FILE, 1, "tokyo ghoul", "10");
+        downloadService.download(URL_TO_GET_PAGE, PATH_TO_FILE, 1, "tokyo ghoul", new String[]{"12"});
     }
 }

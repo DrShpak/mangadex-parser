@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import mangadexparser.customizer.ProxyCustomizer;
 
-@SpringBootApplication()
+@SpringBootApplication
 public class MangadexParserApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MangadexParserApplication.class, args);

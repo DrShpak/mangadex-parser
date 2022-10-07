@@ -2,6 +2,7 @@ package mangadexparser.service.impl;
 
 import mangadexparser.service.Downlodable;
 import org.springframework.stereotype.Component;
+import org.zeroturnaround.zip.ZipUtil;
 
 import java.io.*;
 import java.net.URL;
@@ -39,6 +40,7 @@ public class Downloader implements Downlodable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
