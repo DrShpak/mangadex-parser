@@ -62,7 +62,6 @@ public class DownloadService {
         } else {
             System.out.println("not renamed");
         }
-//        chapterDir.renameTo(new File(path + ".cbz"));
 
     }
 

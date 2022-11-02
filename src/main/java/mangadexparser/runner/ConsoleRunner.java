@@ -22,12 +22,13 @@ public class ConsoleRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+//        args = new String{"tokyo ghoul", "---",}
         StringBuilder title = new StringBuilder();
         StringBuilder chaptersString = new StringBuilder();
 
         int delimiterPos = 0;
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("!")) {
+            if (args[i].equals("---")) {
                 delimiterPos = i;
                 break;
             } else {
